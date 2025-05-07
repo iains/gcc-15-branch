@@ -25,6 +25,11 @@ if {![istarget aarch64*-*-*] } {
     return
 }
 
+# Darwin assembler sve support is incomplete in places
+if { [istarget *-*-darwin*] && ![info exists env(DARWIN_TEST_SVE)] } then {
+  return
+}
+
 load_lib gcc-defs.exp
 
 if ![gcc_parallel_test_run_p aarch64-ssve] {
